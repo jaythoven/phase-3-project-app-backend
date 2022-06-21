@@ -1,3 +1,13 @@
+require 'time'
+
+t1 = Time.parse("2022-11-16 14:40:34")
+t2 = Time.parse("2006-11-20 16:20:23")
+randtime = rand(t1..t2)
+
+def time_rand from = 0.0, to = Time.now
+  Time.at(from + rand * (to.to_f - from.to_f))
+end
+
 puts "🌱 Seeding spices..."
 Show.destroy_all
 Venue.destroy_all
@@ -29,6 +39,17 @@ Venue.create(name: "TD Garden", location: "Boston, MA", id: 5)
 Venue.create(name: "Amway Center", location: "Orlando, FL", id: 6)
 
 puts "Seeding shows..."
+Show.create(name: "VooDoo Fest 2014", date: time_rand, artist_id: 12,venue_id: 6)
+Show.create(name: "VooDoo Fest 2014", date: time_rand, artist_id: 8,venue_id: 6)
+Show.create(name: "VooDoo Fest 2014", date: time_rand, artist_id: 3,venue_id: 6)
+Show.create(name: "VooDoo Fest 2014", date: time_rand, artist_id: 1,venue_id: 6)
+Show.create(name: "VooDoo Fest 2014", date: time_rand, artist_id: 7,venue_id: 6)
+Show.create(name: "Life is Beautiful Festival", date: time_rand, artist_id: 12,venue_id: 3)
+Show.create(name: "Life is Beautiful Festival", date: time_rand, artist_id: 11,venue_id: 3)
+Show.create(name: "Life is Beautiful Festival", date: time_rand, artist_id: 9,venue_id: 3)
+Show.create(name: "Life is Beautiful Festival", date: time_rand, artist_id: 3,venue_id: 3)
+Show.create(name: "(You Drive Me) Crazy Tour", date: time_rand, artist_id: 9, venue_id: 1)
+
 
 
 puts "✅ Done seeding!"
