@@ -49,7 +49,7 @@ class ApplicationController < Sinatra::Base
 
   get "/shows/:id" do
     show = Show.find(params[:id])
-    show.to_json
+    show.to_json(include: :artist)
   end
 
   post "/shows" do

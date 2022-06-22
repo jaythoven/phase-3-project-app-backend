@@ -19,7 +19,8 @@ ActiveRecord::Schema.define(version: 2022_06_21_160613) do
 
   create_table "shows", force: :cascade do |t|
     t.string "name"
-    t.datetime "date"
+    t.string "date"
+    t.string "time"
     t.integer "artist_id"
     t.integer "venue_id"
   end
