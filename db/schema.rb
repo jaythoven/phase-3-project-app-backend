@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2022_06_21_160613) do
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
+    t.string "image"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(version: 2022_06_21_160613) do
   create_table "venues", force: :cascade do |t|
     t.string "name"
     t.string "location"
+    t.string "image"
   end
 
 end

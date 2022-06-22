@@ -3,6 +3,7 @@ class CreateVenues < ActiveRecord::Migration[6.1]
     create_table :venues do |t|
       t.string :name
       t.string :location
+      t.string :image
     end
   end
 end
