@@ -57,7 +57,7 @@ class ApplicationController < Sinatra::Base
       name: params[:name],
       date: params[:date],
       artist_id: params[:artist_id],
-      venue_is: params[:venue_id]
+      venue_id: params[:venue_id]
     )
     show.to_json
   end
