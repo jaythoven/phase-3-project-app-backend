@@ -9,8 +9,7 @@ class ApplicationController < Sinatra::Base
   # artist section
 
   get "/artists" do
-    artist = Artist.all
-    artist.to_json
+    Artist.all.to_json(include: :shows)
   end
 
   get "/artists/:id" do
@@ -22,7 +21,7 @@ class ApplicationController < Sinatra::Base
 
   get "/venues" do
     venue = Venue.all
-    venue.to_json
+    venue.to_json(include: :shows)
   end
 
   get "/venues/:id" do
@@ -43,9 +42,12 @@ class ApplicationController < Sinatra::Base
   # shows section
 
   get "/shows" do
-    show = Show.all
-    show.to_json
+    Show.all.to_json(:include=> [:artist, :venue])
   end
+
+  # get "/shows" do
+  #   Show.all.to_json(include: :venue)
+  # end
 
   get "/shows/:id" do
     show = Show.find(params[:id])
@@ -56,6 +58,7 @@ class ApplicationController < Sinatra::Base
     show = Show.create(
       name: params[:name],
       date: params[:date],
+      time: params[:time],
       artist_id: params[:artist_id],
       venue_id: params[:venue_id]
     )
