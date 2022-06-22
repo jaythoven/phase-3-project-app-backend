@@ -15,7 +15,7 @@ class ApplicationController < Sinatra::Base
 
   get "/artists/:id" do
     artist = Artist.find(params[:id])
-    game.to_json
+    artist.to_json
   end
 
   # venue section
@@ -25,10 +25,46 @@ class ApplicationController < Sinatra::Base
     venue.to_json
   end
 
+  get "/venues/:id" do
+    venue = Venue.find(params[:id])
+    venue.to_json
+  end
+
+  patch "/venues/:id" do
+    venue = Venue.find(params[:id])
+    venue.update(
+      name: params[:name],
+      location: params[:location],
+      image: params[:image]
+    )
+    venue.to_json
+  end
+
   # shows section
 
   get "/shows" do
     show = Show.all
+    show.to_json
+  end
+
+  get "/shows/:id" do
+    show = Show.find(params[:id])
+    show.to_json
+  end
+
+  post "/shows" do
+    show = Show.create(
+      name: params[:name],
+      date: params[:date],
+      artist_id: params[:artist_id],
+      venue_is: params[:venue_id]
+    )
+    show.to_json
+  end
+
+  delete "/shows/:id" do
+    show = Show.find(params[:id])
+    show.destroy
     show.to_json
   end
 
