@@ -51,7 +51,7 @@ class ApplicationController < Sinatra::Base
 
   get "/shows/:id" do
     show = Show.find(params[:id])
-    show.to_json(include: :artist)
+    show.to_json(:include=> [:artist, :venue])
   end
 
   post "/shows" do
@@ -61,6 +61,18 @@ class ApplicationController < Sinatra::Base
       time: params[:time],
       artist_id: params[:artist_id],
       venue_id: params[:venue_id]
+    )
+    show.to_json
+  end
+
+  patch "/shows/:id" do
+    show = Show.find(params[:id])
+    show.update(
+      name: params[:name],
+      date: params[:date],
+      time: params[:time],
+      venue: params[:venue],
+      artist: params[:artist]
     )
     show.to_json
   end
