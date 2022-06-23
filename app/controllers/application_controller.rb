@@ -43,15 +43,17 @@ class ApplicationController < Sinatra::Base
 
   get "/shows" do
     Show.all.to_json(:include=> [:artist, :venue])
+    # Show.all.to_json(:include=> {:artist=>{:include=> {:name}}}, :venue=> {:include=> {{:name}}})
   end
 
-  # get "/shows" do
-  #   Show.all.to_json(include: :venue)
-  # end
 
   get "/shows/:id" do
     show = Show.find(params[:id])
     show.to_json(:include=> [:artist, :venue])
+    # show.to_json(:include=> {:artist=>
+    #   {:include=> {:name}}},
+    #         :venue=>
+    #         {:include=> {{:name}}})
   end
 
   post "/shows" do
