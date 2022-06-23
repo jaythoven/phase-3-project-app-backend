@@ -1,7 +1,7 @@
-class CreateShows < ActiveRecord::Migration[6.1]
+class CreateEvents < ActiveRecord::Migration[6.1]
   def change
-    create_table :shows do |t|
-      t.string :name
+    create_table :events do |t|
+      t.string :event_name
       t.string :date
       t.string :time
       t.integer :artist_id

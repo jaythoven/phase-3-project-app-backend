@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 2022_06_21_160613) do
 
   create_table "artists", force: :cascade do |t|
-    t.string "name"
+    t.string "artist_name"
     t.string "image"
   end
 
-  create_table "shows", force: :cascade do |t|
-    t.string "name"
+  create_table "events", force: :cascade do |t|
+    t.string "event_name"
     t.string "date"
     t.string "time"
     t.integer "artist_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2022_06_21_160613) do
   end
 
   create_table "venues", force: :cascade do |t|
-    t.string "name"
+    t.string "venue_name"
     t.string "location"
     t.string "image"
   end

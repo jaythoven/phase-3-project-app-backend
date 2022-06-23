@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
   # artist section
 
   get "/artists" do
-    Artist.all.to_json(include: :shows)
+    Artist.all.to_json(include: :events)
   end
 
   get "/artists/:id" do
@@ -21,7 +21,7 @@ class ApplicationController < Sinatra::Base
 
   get "/venues" do
     venue = Venue.all
-    venue.to_json(include: :shows)
+    venue.to_json(include: :events)
   end
 
   get "/venues/:id" do
@@ -32,33 +32,33 @@ class ApplicationController < Sinatra::Base
   patch "/venues/:id" do
     venue = Venue.find(params[:id])
     venue.update(
-      name: params[:name],
+      venue_name: params[:venue_name],
       location: params[:location],
       image: params[:image]
     )
     venue.to_json
   end
 
-  # shows section
+  # events section
 
-  get "/shows" do
-    Show.all.to_json(:include=> [:artist, :venue])
+  get "/events" do
+    Event.all.to_json(:include=> [:artist, :venue])
     # Show.all.to_json(:include=> {:artist=>{:include=> {:name}}}, :venue=> {:include=> {{:name}}})
   end
 
 
-  get "/shows/:id" do
-    show = Show.find(params[:id])
-    show.to_json(:include=> [:artist, :venue])
+  get "/events/:id" do
+    event = Event.find(params[:id])
+    event.to_json(:include=> [:artist, :venue])
     # show.to_json(:include=> {:artist=>
     #   {:include=> {:name}}},
     #         :venue=>
     #         {:include=> {{:name}}})
   end
 
-  post "/shows" do
-    show = Show.create(
-      name: params[:name],
+  post "/events" do
+    event = Event.create(
+      event_name: params[:event_name],
       date: params[:date],
       time: params[:time],
       artist_id: params[:artist_id],
@@ -67,22 +67,31 @@ class ApplicationController < Sinatra::Base
     show.to_json
   end
 
-  patch "/shows/:id" do
-    show = Show.find(params[:id])
-    show.update(
-      name: params[:name],
+  patch "/events/:id" do
+    event = Event.find_or_create_by(event_name: params[:event_name])
+    # puts show
+    # show.to_json
+    event.update(
+      event_name: params[:event_name],
       date: params[:date],
       time: params[:time],
-      venue: params[:venue],
-      artist: params[:artist]
+      artist_id: params[:artist_id],
+      venue_id: params[:venue_id]
     )
-    show.to_json
+    event.artist.update(
+      artist_name: params[:artist_name]
+      # Artist.all.include?(show.artist.name) ? Artist.create((name: params[:name]) : (name: params[:name]))
+    )
+    event.venue.update(
+      venue_name: params[:venue_name]
+    )
+    event.to_json
   end
 
-  delete "/shows/:id" do
-    show = Show.find(params[:id])
-    show.destroy
-    show.to_json
+  delete "/events/:id" do
+    event = Event.find(params[:id])
+    event.destroy
+    event.to_json
   end
 
 end
