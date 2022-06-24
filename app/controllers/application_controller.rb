@@ -9,11 +9,28 @@ class ApplicationController < Sinatra::Base
   # artist section
 
   get "/artists" do
-    Artist.all.to_json(include: :events)
+    Artist.all.to_json
   end
 
   get "/artists/:id" do
     artist = Artist.find(params[:id])
+    artist.to_json
+  end
+
+  post "/artists" do
+    artist = Artist.create(
+      artist_name: params[:artist_name],
+      image: params[:image],
+    )
+    artist.to_json
+  end
+
+  patch "/artists/:id" do
+    artist = Artist.find(params[:id])
+    artist.update(
+      artist_name: params[:artist_name],
+      image: params[:image],
+    )
     artist.to_json
   end
 
@@ -78,13 +95,13 @@ class ApplicationController < Sinatra::Base
       artist_id: params[:artist_id],
       venue_id: params[:venue_id]
     )
-    event.artist.update(
-      artist_name: params[:artist_name]
-      # Artist.all.include?(show.artist.name) ? Artist.create((name: params[:name]) : (name: params[:name]))
-    )
-    event.venue.update(
-      venue_name: params[:venue_name]
-    )
+    # event.artist.update(
+    #   artist_name: params[:artist_name]
+    #   # Artist.all.include?(show.artist.name) ? Artist.create((name: params[:name]) : (name: params[:name]))
+    # )
+    # event.venue.update(
+    #   venue_name: params[:venue_name]
+    # )
     event.to_json
   end
 
