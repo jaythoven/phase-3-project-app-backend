@@ -34,6 +34,7 @@ class ApplicationController < Sinatra::Base
     artist.to_json
   end
 
+  
   # venue section
 
   get "/venues" do
@@ -96,6 +97,7 @@ class ApplicationController < Sinatra::Base
       # artist_id: params[:artist_id],
       # venue_id: params[:venue_id]
     )
+    # artist = Artist.find(params[:id])
     # event.artist.update(
     #   artist_name: params[:artist_name]
     #   # Artist.all.include?(show.artist.name) ? Artist.create((name: params[:name]) : (name: params[:name]))
