@@ -85,15 +85,16 @@ class ApplicationController < Sinatra::Base
   end
 
   patch "/events/:id" do
-    event = Event.find_or_create_by(event_name: params[:event_name])
+    # event = Event.find_or_create_by(event_name: params[:event_name])
+    event = Event.find(params[:id])
     # puts show
     # show.to_json
     event.update(
-      event_name: params[:event_name],
+      # event_name: params[:event_name],
       date: params[:date],
       time: params[:time],
-      artist_id: params[:artist_id],
-      venue_id: params[:venue_id]
+      # artist_id: params[:artist_id],
+      # venue_id: params[:venue_id]
     )
     # event.artist.update(
     #   artist_name: params[:artist_name]
